@@ -1,5 +1,13 @@
 from rest_framework import serializers
 from .models import Admin, Vendor, Customer
+from django.core import validators
+
+
+def is_valid(self):
+    valid = super().is_valid("email")
+    if not valid:
+        return False
+    return True
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -11,10 +19,18 @@ class CustomerSerializer(serializers.ModelSerializer):
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
-        fields = ["username", "email", "password", "is_vendor"]
+        exclude = ["is_vendor"]
+
+    def create(self, validated_data, **kwargs):
+        vendor = super().create(dict(is_vendor=True, **validated_data))
+        return vendor
 
 
 class AdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admin
-        fields = "__all__"
+        exclude = ["is_admin"]
+
+    def create(self, validated_data, **kwargs):
+        admin = super().create(dict(is_admin=True, **validated_data))
+        return admin

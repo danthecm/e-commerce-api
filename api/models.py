@@ -16,7 +16,7 @@ class BaseModel(models.Model):
 
 
 class Admin(BaseModel):
-    is_admin = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=True, blank=False)
     username = models.CharField(max_length=50)
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Admin(BaseModel):
 
 
 class Vendor(BaseModel):
-    is_vendor = models.BooleanField(default=True)
+    is_vendor = models.BooleanField(default=True, blank=False)
     username = models.CharField(max_length=50)
 
     def __str__(self):

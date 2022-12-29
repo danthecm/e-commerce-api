@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class User(models.Model):
+class BaseModel(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     password = models.CharField(max_length=225)
@@ -15,7 +15,7 @@ class User(models.Model):
         abstract = True
 
 
-class Admin(User):
+class Admin(BaseModel):
     is_admin = models.BooleanField(default=True)
     username = models.CharField(max_length=50)
 
@@ -23,7 +23,7 @@ class Admin(User):
         return self.username
 
 
-class Vendor(User):
+class Vendor(BaseModel):
     is_vendor = models.BooleanField(default=True)
     username = models.CharField(max_length=50)
 
@@ -31,7 +31,7 @@ class Vendor(User):
         return self.username
 
 
-class Customer(User):
+class Customer(BaseModel):
     username = models.CharField(max_length=50)
 
     def __str__(self):

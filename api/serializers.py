@@ -3,13 +3,6 @@ from .models import Admin, Vendor, Customer
 from django.core import validators
 
 
-def is_valid(self):
-    valid = super().is_valid("email")
-    if not valid:
-        return False
-    return True
-
-
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
